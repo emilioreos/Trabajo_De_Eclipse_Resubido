@@ -7,18 +7,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class LibretaDeTareasList extends LibretaDeTareasAbstracta implements List {
+public class LibretaDeTareasList extends LibretaDeTareasAbstracta implements List<Tarea> {
 
 	public LibretaDeTareasList() {
 		super();
 		System.out.println("iniciando libretaDeTareasList()...");
 	}
 
-	public boolean add(Object e) {
+	public boolean add(Tarea e) {
 		return contenedor.add(e);
 	}
 
-	public void add(int index, Object element) {
+	public void add(int index, Tarea element) {
 		contenedor.add(index, element);
 	}
 
@@ -42,8 +42,8 @@ public class LibretaDeTareasList extends LibretaDeTareasAbstracta implements Lis
 		return contenedor.contains(c);
 	}
 
-	public Object get(int index) {
-		return contenedor.get(index);
+	public Tarea get(int index) {
+		return (Tarea)contenedor.get(index);
 	}
 
 	public int indexOf(Object o) {
@@ -74,8 +74,8 @@ public class LibretaDeTareasList extends LibretaDeTareasAbstracta implements Lis
 		return contenedor.remove(o);
 	}
 
-	public Object remove(int index) {
-		return contenedor.remove(index);
+	public Tarea remove(int index) {
+		return (Tarea)contenedor.remove(index);
 	}
 
 	public boolean removeAll(Collection c) {
@@ -87,8 +87,8 @@ public class LibretaDeTareasList extends LibretaDeTareasAbstracta implements Lis
 		return contenedor.retainAll(c);
 	}
 
-	public Object set(int index, Object element) {
-		return contenedor.set(index, element);
+	public Tarea set(int index, Tarea element) {
+		return (Tarea)contenedor.set(index, element);
 	}
 
 	public int size() {
