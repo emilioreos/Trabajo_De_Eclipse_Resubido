@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
+import javax.swing.JComponent;
 import javax.swing.*;
 
 public class InterfaceUsuario extends JFrame {
@@ -24,28 +24,19 @@ public class InterfaceUsuario extends JFrame {
 	LibretaDeTareas listaTareas=new LibretaDeTareas();
 	private class escuchadorBoton implements ActionListener{
 		String ss,sss,ssss,sp;
-		private void validarDatos() throws Exception {
-			String ss=titulo.getText();
+		private String estaBasio(String  mensaje,TextField texto)throws ComponenteBacioExepcion{
+			String ss=texto.getText();
 			if("".equalsIgnoreCase(ss.trim())){
-				titulo.requestFocus();
-				throw new Exception("titulo basio");
+				throw new ComponenteBacioExepcion(mensaje,texto);
 			}
+			return ss;
+		}
+		private void validarDatos() throws ComponenteBacioExepcion {
+			String ss=estaBasio("titulo basio",titulo);//titulo.getText();
 			
-			String sss=categoria.getText();
-			if("".equalsIgnoreCase(sss.trim())){
-				categoria.requestFocus();
-				throw new Exception("categoria basia");
-			}
-			String ssss=descripcion.getText();
-			if("".equalsIgnoreCase(sss.trim())){
-				descripcion.requestFocus();
-				throw new Exception("descripcion basia");
-			}
-			String sp=propietario.getText();
-			if("".equalsIgnoreCase(sss.trim())){
-				propietario.requestFocus();
-				throw new Exception("propietario basio");
-			}
+			String sss=estaBasio("categoria basia",categoria);//categoria.getText();
+			String ssss=estaBasio("descripcion basia", descripcion);//descripcion.getText();
+			String sp=estaBasio("propietario basio", propietario);//propietario.getText();
 			this.ss=ss;
 			this.sss=sss;
 			this.ssss=ssss;
@@ -67,6 +58,9 @@ public class InterfaceUsuario extends JFrame {
 				t.setFechaDeEntrega(c.getTime());
 				
 				programa.libreta.agragar(t);
+			}catch(ComponenteBacioExepcion ex){
+				ex.getComponente().requestFocus();
+				JOptionPane.showMessageDialog(InterfaceUsuario.this, ex.getMessage(),"error en los campos",JOptionPane.ERROR_MESSAGE);
 			}catch(Exception ex){
 				JOptionPane.showMessageDialog(InterfaceUsuario.this, ex.getMessage(),"error en los campos",JOptionPane.ERROR_MESSAGE);
 				//ex.printStackTrace();
